@@ -67,4 +67,9 @@ EXPOSE 3000
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
+# Add labels for better container management
+LABEL org.opencontainers.image.source="https://github.com/yourusername/conectafit"
+LABEL org.opencontainers.image.description="ConectaFit App"
+LABEL org.opencontainers.image.licenses="MIT"
+
 CMD ["node", "server.js"] 
