@@ -90,13 +90,13 @@ export function WorkoutDetails({ workout, userType, userId }: WorkoutDetailsProp
         credentials: "include",
       })
 
+      const data = await response.json()
+
       if (!response.ok) {
-        const errorData = await response.json()
-        console.error("Cliente (Detalhes): Erro na resposta da API:", errorData)
-        throw new Error(errorData.error || "Não foi possível excluir a ficha de treino")
+        console.error("Cliente (Detalhes): Erro na resposta da API:", data)
+        throw new Error(data.error || "Não foi possível excluir a ficha de treino")
       }
 
-      const data = await response.json()
       console.log("Cliente (Detalhes): Resposta da API de exclusão:", data)
 
       toast({
@@ -105,7 +105,7 @@ export function WorkoutDetails({ workout, userType, userId }: WorkoutDetailsProp
       })
 
       // Redirecionar para a página de treinos após a exclusão bem-sucedida
-      router.push("/dashboard/workouts")
+      router.push("/workouts")
       router.refresh()
     } catch (error) {
       console.error("Cliente (Detalhes): Erro ao excluir ficha:", error)

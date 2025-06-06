@@ -334,7 +334,7 @@ export function WorkoutForm({ trainerId, clients, exercises, preSelectedClientId
         })
 
         // Redirecionar para a página de detalhes da ficha e forçar atualização
-        router.push(`/dashboard/workouts/${workout.id}`)
+        router.push(`/workouts/${workout.id}`)
         router.refresh()
       } else {
         // Criar nova ficha
