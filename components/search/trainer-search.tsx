@@ -382,12 +382,6 @@ export function TrainerSearch({ specializations, userId }: TrainerSearchProps) {
                 <Button variant="outline" className="w-full border-[#3f3f46] text-white hover:bg-[#27272a]" asChild>
                   <Link href={`/trainers/${trainer.id}`}>Ver perfil</Link>
                 </Button>
-                <Button
-                  className="w-full bg-red-600 hover:bg-red-700 text-white"
-                  onClick={() => handleRequestSession(trainer.id)}
-                >
-                  Solicitar
-                </Button>
               </CardFooter>
             </Card>
           ))
