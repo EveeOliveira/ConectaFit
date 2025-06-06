@@ -6,7 +6,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install -g pnpm@latest
 
 # Install dependencies based on the preferred package manager
 COPY package.json pnpm-lock.yaml* ./
@@ -23,8 +23,11 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
-RUN pnpm build
+# Install pnpm in builder stage
+RUN npm install -g pnpm@latest
+
+# Build the application
+RUN pnpm exec next build
 
 # Production image, copy all the files and run next
 FROM base AS runner
