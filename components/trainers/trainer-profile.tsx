@@ -192,7 +192,11 @@ export function TrainerProfile({ trainer, reviews, userId }: TrainerProfileProps
                             key={date}
                             type="button"
                             variant={selectedDate === date ? "default" : "outline"}
-                            className="h-auto py-2"
+                            className={`h-auto py-2 ${
+                              selectedDate === date
+                                ? "bg-[#d30014] hover:bg-[#d30014]/90 text-white"
+                                : "border-[#3f3f46] text-white hover:bg-[#27272a]"
+                            }`}
                             onClick={() => setSelectedDate(date)}
                           >
                             <div className="text-xs">{format(new Date(date), "EEE", { locale: ptBR })}</div>
@@ -211,7 +215,11 @@ export function TrainerProfile({ trainer, reviews, userId }: TrainerProfileProps
                               key={time}
                               type="button"
                               variant={selectedTime === time ? "default" : "outline"}
-                              className="h-auto py-2"
+                              className={`h-auto py-2 ${
+                                selectedTime === time
+                                  ? "bg-[#d30014] hover:bg-[#d30014]/90 text-white"
+                                  : "border-[#3f3f46] text-white hover:bg-[#27272a]"
+                              }`}
                               onClick={() => setSelectedTime(time)}
                             >
                               {time}
@@ -239,7 +247,7 @@ export function TrainerProfile({ trainer, reviews, userId }: TrainerProfileProps
                   <Button
                     onClick={handleRequestSession}
                     disabled={!selectedDate || !selectedTime || isSubmitting}
-                    className="w-full"
+                    className="w-full bg-[#d30014] hover:bg-[#d30014]/90 text-white"
                   >
                     {isSubmitting ? "Enviando..." : "Solicitar Sessão"}
                   </Button>
