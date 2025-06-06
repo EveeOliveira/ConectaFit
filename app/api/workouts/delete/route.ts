@@ -53,24 +53,31 @@ export async function POST(request: Request) {
 
     console.log("API: Autorização confirmada para o trainer:", session.user.id)
 
-    // 1. Primeiro, excluir os exercícios relacionados
-    console.log("API: Excluindo exercícios da ficha:", workoutId)
-    const { error: exercisesError } = await supabase.from("workout_exercises").delete().eq("workout_plan_id", workoutId)
+    // Iniciar uma transação para garantir a atomicidade das operações
+    const { error: transactionError } = await supabase.rpc('delete_workout_plan', {
+      p_workout_id: workoutId
+    })
 
-    if (exercisesError) {
-      console.error("API: Erro ao excluir exercícios:", exercisesError)
-      return NextResponse.json({ error: "Erro ao excluir exercícios da ficha" }, { status: 500 })
+    if (transactionError) {
+      console.error("API: Erro na transação de exclusão:", transactionError)
+      return NextResponse.json({ error: "Erro ao excluir ficha e seus exercícios" }, { status: 500 })
     }
 
-    console.log("API: Exercícios excluídos com sucesso")
+    // Verificar se a ficha foi realmente excluída
+    const { data: checkWorkout, error: checkError } = await supabase
+      .from("workout_plans")
+      .select("id")
+      .eq("id", workoutId)
+      .single()
 
-    // 2. Depois, excluir a ficha
-    console.log("API: Excluindo a ficha:", workoutId)
-    const { error: deleteError } = await supabase.from("workout_plans").delete().eq("id", workoutId)
+    if (checkError && checkError.code !== 'PGRST116') {
+      console.error("API: Erro ao verificar exclusão:", checkError)
+      return NextResponse.json({ error: "Erro ao verificar exclusão da ficha" }, { status: 500 })
+    }
 
-    if (deleteError) {
-      console.error("API: Erro ao excluir ficha:", deleteError)
-      return NextResponse.json({ error: `Erro ao excluir ficha: ${deleteError.message}` }, { status: 500 })
+    if (checkWorkout) {
+      console.error("API: Ficha ainda existe após tentativa de exclusão")
+      return NextResponse.json({ error: "Ficha não foi excluída corretamente" }, { status: 500 })
     }
 
     console.log("API: Ficha excluída com sucesso")
