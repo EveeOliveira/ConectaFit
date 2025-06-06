@@ -17,6 +17,24 @@ export const createClient = () => {
           autoRefreshToken: true,
           detectSessionInUrl: true,
         },
+        global: {
+          headers: {
+            'X-Client-Info': 'conectafit-app',
+          },
+        },
+        db: {
+          schema: 'public',
+        },
+        realtime: {
+          params: {
+            eventsPerSecond: 10,
+          },
+        },
+        // Forçar HTTPS
+        fetch: (url, options) => {
+          const httpsUrl = url.toString().replace('http://', 'https://')
+          return fetch(httpsUrl, options)
+        },
       },
     })
   }
