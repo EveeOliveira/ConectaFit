@@ -11,8 +11,7 @@ export const metadata = {
   generator: 'v0.dev',
   icons: {
     icon: [
-      { rel: 'icon', url: '/favicon.ico' },
-      { rel: 'shortcut icon', url: '/favicon.ico' },
+      { rel: 'icon', url: '/favicon.png', type: 'image/png' },
     ],
   },
 }
@@ -25,8 +24,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
