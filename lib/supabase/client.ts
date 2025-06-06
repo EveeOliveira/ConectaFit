@@ -8,8 +8,10 @@ let supabaseClient: ReturnType<typeof createClientComponentClient<Database>> | n
 
 export const createClient = () => {
   if (!supabaseClient) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace('http://', 'https://')
+    
     supabaseClient = createClientComponentClient<Database>({
-      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+      supabaseUrl,
       supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
       options: {
         auth: {
@@ -22,18 +24,15 @@ export const createClient = () => {
             'X-Client-Info': 'conectafit-app',
           },
         },
-        db: {
-          schema: 'public',
-        },
-        realtime: {
-          params: {
-            eventsPerSecond: 10,
-          },
-        },
-        // Forçar HTTPS
         fetch: (url, options) => {
           const httpsUrl = url.toString().replace('http://', 'https://')
-          return fetch(httpsUrl, options)
+          return fetch(httpsUrl, {
+            ...options,
+            headers: {
+              ...options?.headers,
+              'X-Client-Info': 'conectafit-app',
+            },
+          })
         },
       },
     })
