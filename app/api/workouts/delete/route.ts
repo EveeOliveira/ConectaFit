@@ -1,4 +1,4 @@
-import { createServerClient } from "@supabase/ssr"
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
 
@@ -13,21 +13,7 @@ export async function POST(request: Request) {
     console.log("API: Iniciando exclusão da ficha:", workoutId)
 
     const cookieStore = cookies()
-
-    // Criar cliente Supabase com a chave de serviço para ter permissões administrativas
-    const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-      cookies: {
-        get(name) {
-          return cookieStore.get(name)?.value
-        },
-        set(name, value, options) {
-          cookieStore.set({ name, value, ...options })
-        },
-        remove(name, options) {
-          cookieStore.set({ name, value: "", ...options })
-        },
-      },
-    })
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
 
     // Verificar a sessão do usuário
     const { data: { session }, error: sessionError } = await supabase.auth.getSession()

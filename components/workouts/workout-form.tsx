@@ -333,7 +333,9 @@ export function WorkoutForm({ trainerId, clients, exercises, preSelectedClientId
           description: "A ficha de treino foi atualizada com sucesso.",
         })
 
-        router.push(`/workouts/${workout.id}`)
+        // Redirecionar para a página de detalhes da ficha e forçar atualização
+        router.push(`/dashboard/workouts/${workout.id}`)
+        router.refresh()
       } else {
         // Criar nova ficha
         const { data: workoutData, error: workoutError } = await supabase
