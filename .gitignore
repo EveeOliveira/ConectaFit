@@ -3,7 +3,8 @@
 # dependencies
 /node_modules
 
-# next.js
+# build output
+dist/
 /.next/
 /out/
 
@@ -25,3 +26,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#cache
+.cache/
