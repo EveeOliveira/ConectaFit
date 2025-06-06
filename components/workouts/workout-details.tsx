@@ -87,6 +87,7 @@ export function WorkoutDetails({ workout, userType, userId }: WorkoutDetailsProp
         body: JSON.stringify({
           workoutId: workout.id,
         }),
+        credentials: "include",
       })
 
       if (!response.ok) {
