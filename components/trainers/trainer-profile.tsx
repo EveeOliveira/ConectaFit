@@ -69,8 +69,10 @@ export function TrainerProfile({ trainer, reviews, userId }: TrainerProfileProps
         }),
       })
 
+      const data = await response.json()
+
       if (!response.ok) {
-        throw new Error("Erro ao solicitar sessão")
+        throw new Error(data.error || "Erro ao solicitar sessão")
       }
 
       toast({
@@ -85,7 +87,7 @@ export function TrainerProfile({ trainer, reviews, userId }: TrainerProfileProps
       console.error("Erro ao solicitar sessão:", error)
       toast({
         title: "Erro",
-        description: "Não foi possível enviar a solicitação. Tente novamente.",
+        description: error instanceof Error ? error.message : "Não foi possível enviar a solicitação. Tente novamente.",
         variant: "destructive",
       })
     } finally {
