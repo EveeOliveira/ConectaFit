@@ -10,11 +10,7 @@ const nextConfig = {
     unoptimized: true,
   },
   distDir: 'dist',
-  // Configuração do servidor
-  server: {
-    port: 3000,
-    host: '0.0.0.0',
-  },
+  // Configuração do servidor removida pois não é suportada pelo Next.js
 }
 
 export default nextConfig
