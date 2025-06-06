@@ -1,0 +1,23 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/(auth)/register/page": "app/(auth)/register/page.js",
+  "/(dashboard)/clients/[id]/page": "app/(dashboard)/clients/[id]/page.js",
+  "/(auth)/auth/callback/route": "app/(auth)/auth/callback/route.js",
+  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
+  "/(dashboard)/search/page": "app/(dashboard)/search/page.js",
+  "/(dashboard)/clients/page": "app/(dashboard)/clients/page.js",
+  "/(dashboard)/profile/page": "app/(dashboard)/profile/page.js",
+  "/(dashboard)/sessions/page": "app/(dashboard)/sessions/page.js",
+  "/(dashboard)/trainers/[id]/page": "app/(dashboard)/trainers/[id]/page.js",
+  "/(dashboard)/workouts/[id]/page": "app/(dashboard)/workouts/[id]/page.js",
+  "/(dashboard)/workouts/create/page": "app/(dashboard)/workouts/create/page.js",
+  "/(dashboard)/workouts/[id]/edit/page": "app/(dashboard)/workouts/[id]/edit/page.js",
+  "/api/auth/callback/route": "app/api/auth/callback/route.js",
+  "/api/register/route": "app/api/register/route.js",
+  "/(dashboard)/workouts/page": "app/(dashboard)/workouts/page.js",
+  "/api/workouts/delete/route": "app/api/workouts/delete/route.js",
+  "/api/workouts/exercises/delete/route": "app/api/workouts/exercises/delete/route.js",
+  "/page": "app/page.js",
+  "/api/sessions/cancel/route": "app/api/sessions/cancel/route.js"
+}
