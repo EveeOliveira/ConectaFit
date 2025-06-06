@@ -29,7 +29,15 @@ export async function POST(request: Request) {
       },
     })
 
-    // Verificar se a ficha existe antes de tentar excluí-la
+    // Verificar a sessão do usuário
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+
+    if (sessionError || !session) {
+      console.error("API: Erro de autenticação:", sessionError)
+      return NextResponse.json({ error: "Não autorizado" }, { status: 401 })
+    }
+
+    // Verificar se a ficha existe e se o usuário é o trainer responsável
     const { data: workout, error: workoutError } = await supabase
       .from("workout_plans")
       .select("id, trainer_id")
@@ -39,6 +47,12 @@ export async function POST(request: Request) {
     if (workoutError) {
       console.error("API: Erro ao buscar ficha:", workoutError)
       return NextResponse.json({ error: "Ficha não encontrada" }, { status: 404 })
+    }
+
+    // Verificar se o usuário é o trainer responsável pela ficha
+    if (workout.trainer_id !== session.user.id) {
+      console.error("API: Tentativa de exclusão não autorizada")
+      return NextResponse.json({ error: "Não autorizado" }, { status: 403 })
     }
 
     console.log("API: Ficha encontrada:", workout)

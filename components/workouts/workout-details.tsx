@@ -105,7 +105,7 @@ export function WorkoutDetails({ workout, userType, userId }: WorkoutDetailsProp
       })
 
       // Redirecionar para a página de treinos após a exclusão bem-sucedida
-      router.push("/workouts")
+      router.push("/dashboard/workouts")
     } catch (error) {
       console.error("Cliente (Detalhes): Erro ao excluir ficha:", error)
       toast({
