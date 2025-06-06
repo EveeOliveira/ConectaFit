@@ -8,7 +8,10 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "ConectaFit",
   description: "Conectando clientes e personal trainers de forma simples e eficiente",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
