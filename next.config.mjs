@@ -9,7 +9,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  distDir: 'dist',
+  output: 'standalone',
   // Configuração do servidor removida pois não é suportada pelo Next.js
 }
 
