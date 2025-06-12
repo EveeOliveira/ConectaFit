@@ -36,7 +36,6 @@ ConectaFit é uma plataforma web moderna que conecta profissionais de fitness (p
 #### Infraestrutura
 - Docker
 - Nginx
-- Vercel (Deploy)
 
 ### Escopo e Funcionalidades Principais
 - Sistema de autenticação e autorização
@@ -172,17 +171,16 @@ PUT /api/sessions/:id
 
 ### Ambientes
 - Development (localhost)
-- Staging (vercel-preview)
-- Production (vercel)
+- Production (vps)
 
 ### Processo de Deploy
-- CI/CD via Vercel
+- CI/CD via Vps
 - Deploy automático em PR
 - Deploy manual em produção
 - Testes automatizados
 
 ### Serviços
-- Vercel (Hosting)
+- Vps (Hosting)
 - Supabase (Backend)
 - GitHub (Versionamento)
 
