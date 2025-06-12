@@ -72,12 +72,16 @@ export function WorkoutDetails({ workout, userType, userId }: WorkoutDetailsProp
   const isTrainer = userType === "trainer" && userId === workout.trainer.id
 
   const handleDelete = async () => {
-    if (!isTrainer) return
+    if (!isTrainer) {
+      console.error("Cliente (Detalhes): Tentativa de exclusão por usuário não autorizado")
+      return
+    }
 
     setIsDeleting(true)
     console.log("Cliente (Detalhes): Iniciando exclusão da ficha:", workout.id)
 
     try {
+      console.log("Cliente (Detalhes): Enviando requisição para a API")
       // Usar exclusivamente a API para excluir a ficha
       const response = await fetch("/api/workouts/delete", {
         method: "POST",
@@ -87,16 +91,19 @@ export function WorkoutDetails({ workout, userType, userId }: WorkoutDetailsProp
         body: JSON.stringify({
           workoutId: workout.id,
         }),
+        credentials: "include",
       })
 
+      console.log("Cliente (Detalhes): Resposta recebida da API, status:", response.status)
+      const data = await response.json()
+      console.log("Cliente (Detalhes): Dados da resposta:", data)
+
       if (!response.ok) {
-        const errorData = await response.json()
-        console.error("Cliente (Detalhes): Erro na resposta da API:", errorData)
-        throw new Error(errorData.error || "Não foi possível excluir a ficha de treino")
+        console.error("Cliente (Detalhes): Erro na resposta da API:", data)
+        throw new Error(data.error || "Não foi possível excluir a ficha de treino")
       }
 
-      const data = await response.json()
-      console.log("Cliente (Detalhes): Resposta da API de exclusão:", data)
+      console.log("Cliente (Detalhes): Exclusão bem-sucedida")
 
       toast({
         title: "Ficha excluída",
@@ -104,7 +111,9 @@ export function WorkoutDetails({ workout, userType, userId }: WorkoutDetailsProp
       })
 
       // Redirecionar para a página de treinos após a exclusão bem-sucedida
+      console.log("Cliente (Detalhes): Redirecionando para a página de treinos")
       router.push("/workouts")
+      router.refresh()
     } catch (error) {
       console.error("Cliente (Detalhes): Erro ao excluir ficha:", error)
       toast({

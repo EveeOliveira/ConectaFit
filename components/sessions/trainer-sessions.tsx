@@ -61,7 +61,7 @@ export function TrainerSessions({ userId }: TrainerSessionsProps) {
       } else if (activeTab === "past") {
         query = query
           .lt("session_date", now)
-          .or("status.eq.completed,status.eq.rejected")
+          .or("status.eq.completed")
           .order("session_date", { ascending: false })
       } else if (activeTab === "cancelled") {
         query = query.eq("status", "cancelled").order("session_date", { ascending: false })

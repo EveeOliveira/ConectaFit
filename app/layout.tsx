@@ -8,7 +8,12 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "ConectaFit",
   description: "Conectando clientes e personal trainers de forma simples e eficiente",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
+  icons: {
+    icon: [
+      { rel: 'icon', url: '/favicon.png', type: 'image/png' },
+    ],
+  },
 }
 
 export default function RootLayout({
@@ -18,6 +23,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.png" type="image/png" />
+      </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
